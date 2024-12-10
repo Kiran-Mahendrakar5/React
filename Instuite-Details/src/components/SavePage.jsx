@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const refSave = 'http://localhost:8093/save';
+const refSave = 'http://localhost:8096/save';// Backend API endpoint for saving data
 
 const SavePage = () => {
   const [formData, setFormData] = useState({
@@ -11,19 +11,21 @@ const SavePage = () => {
     type: '',
   });
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');  // saving only one process //always holds a string, whether it's empty, a success message, 
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target; // Get input field name and value
+    setFormData({ ...formData, [name]: value });// Update the respective field in formData
   };
-
+ // Function to handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();// Prevent the default form submission behavior\
+    //The page won't reload.
+// The input's value is logged to the console.
     try {
-      const response = await axios.post(refSave, formData);
-      setMessage(response.data);
-      setFormData({ id: '', name: '', location: '', type: '' });
+      const response = await axios.post(refSave, formData);// // Send POST request to the backend with form data
+      setMessage(response.data);// // Set the success message from backend response
+      setFormData({ id: '', name: '', location: '', type: '' });// Clear the form fields
     } catch (error) {
       console.error("Error saving data:", error);
       setMessage('Failed to save data.');

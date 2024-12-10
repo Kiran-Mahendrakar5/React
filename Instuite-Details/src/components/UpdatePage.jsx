@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const refUpdate = 'http://localhost:8093/update'; // Backend API for updating data
+const refUpdate = 'http://localhost:8096/update'; // Backend API for updating data
 
 const UpdatePage = () => {
   const [formData, setFormData] = useState({

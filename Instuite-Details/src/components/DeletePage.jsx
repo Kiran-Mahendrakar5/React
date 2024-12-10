@@ -1,48 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const refDelete = 'http://localhost:8093/deleteNameById'; // Backend API for deleting data
+const refDelete = 'http://localhost:8096/deleteNameById'; // Backend API for deleting data
 
 const DeletePage = () => {
-  const [id, setId] = useState(''); // Only need ID for deletion
   const [message, setMessage] = useState('');
+  const { id } = useParams(); // Get the ID from URL parameters
+  const navigate = useNavigate();
 
-  
-  const handleChange = (e) => {
-    setId(e.target.value);
-  };
-
-  // Handle form submission for delete
-  const handleDelete = async (e) => {
-    e.preventDefault(); // Prevent page refresh on form submission
+  const handleDelete = async () => {
     try {
-      const response = await axios.delete(`${refDelete}/${id}`); // Corrected API call
+      const response = await axios.delete(`${refDelete}/${id}`);
       setMessage(response.data); // Display success message
-      setId(''); // Reset ID input
+      navigate('/read'); // Navigate back to the Read page after successful deletion
     } catch (error) {
-      console.error("Error deleting data:", error);
+      console.error('Error deleting data:', error);
       setMessage('Failed to delete data.');
     }
   };
-  
 
   return (
     <div>
       <h2>Delete Institute</h2>
-      <form onSubmit={handleDelete}>
-        <label>
-          ID to Delete:
-          <input
-            type="number"
-            value={id}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Delete Institute</button>
-      </form>
-      {message && <p>{message}</p>}
+      <p>Are you sure you want to delete the institute with ID: {id}?</p>
+      <button onClick={handleDelete}>Yes, Delete</button>
+      <p>{message}</p>
     </div>
   );
 };
