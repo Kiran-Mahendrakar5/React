@@ -42,7 +42,9 @@ const ReadPage = () => {
                 <td>{item.type}</td>
                 <td>
                  
-                  <Link to={`/update/${item.id}`}>Update</Link> 
+                  {/* <Link to={`/update/${item.id}`}>Update</Link>  */}
+                  <Link to={`/update/${item.id}`} state={{ id: item.id, name: item.name }}>Update</Link>
+
                   | 
                  
                   <Link to={`/delete/${item.id}`}>Delete</Link>

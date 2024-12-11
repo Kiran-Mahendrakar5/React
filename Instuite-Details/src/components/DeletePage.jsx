@@ -24,7 +24,7 @@ const DeletePage = () => {
     <div>
       <h2>Delete Institute</h2>
       <p>Are you sure you want to delete the institute with ID: {id}?</p>
-      <button onClick={handleDelete}>Yes, Delete</button>
+      <button onClick={handleDelete}>Click To Delete</button>
       <p>{message}</p>
     </div>
   );
